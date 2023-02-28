@@ -8,6 +8,48 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Img\2.png" />
+    <None Remove="Img\216658.png" />
+    <None Remove="Img\add-user.png" />
+    <None Remove="Img\add.jpg" />
+    <None Remove="Img\Add.png" />
+    <None Remove="Img\adda.png" />
+    <None Remove="Img\addr.png" />
+    <None Remove="Img\addu.png" />
+    <None Remove="Img\add_user_group-512.webp" />
+    <None Remove="Img\ads.jpg" />
+    <None Remove="Img\cansel.png" />
+    <None Remove="Img\e82817fdc52bb535ff447de8a795fcaf.jpg" />
+    <None Remove="Img\Ok.png" />
+    <None Remove="Img\quest.png" />
+    <None Remove="Img\Upd.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Img\216658.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\Add.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\cansel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\e82817fdc52bb535ff447de8a795fcaf.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\Ok.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\quest.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\Upd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.14" />
   </ItemGroup>
 

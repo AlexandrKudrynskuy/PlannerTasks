@@ -32,12 +32,17 @@ namespace PlannerTasks
             services.AddTransient<UserService>();
             services.AddTransient<UserRepository>();
             services.AddTransient<MainWindow>();
+            services.AddTransient<SupAdminWind>();
+            services.AddTransient<AdminWindow>();
+            services.AddTransient<WorkerWind>();
 
 
         }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            var wind = provider.GetService<MainWindow>();
+            //var wind = provider.GetService<MainWindow>();
+            var wind = provider.GetService<SupAdminWind>();
+
             wind.Show();
         }
     }

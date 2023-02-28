@@ -1,6 +1,7 @@
 ﻿using BLL.Service;
 using Domain.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,16 +26,57 @@ namespace PlannerTasks
     public partial class MainWindow : Window
     {
         private readonly UserService userService;
-        private readonly ObservableCollection<User> users;
+        private ObservableCollection<User> users;
         public MainWindow(UserService _userService)
         {
-            users=new ObservableCollection<User>();
-            InitializeComponent();
-            this.Show();
             userService = _userService;
-            
-           
+            InitializeComponent();
         }
-
+        private async void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsersComboBox.SelectedValue is User us)
+            {
+                var user = await userService.Login(us.Login, PasswordPasswordBox.Password);
+                if (user == null)
+                {
+                    MessageBox.Show("Невірний пароль");
+                }
+                else
+                {
+                    CurrentUser.GetCurentUser();
+                    CurrentUser.SetCurrentUser(user);
+                    this.Close();
+                }
+            }
+        }
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            UsersComboBox.ItemsSource = new ObservableCollection<User>(await userService.GetAllAsync());
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (CurrentUser.User == null)
+            {
+                return;
+            }
+            if (CurrentUser.User.TypeUser == TypeUser.SuperAdmin)
+            {
+                var wind = App.provider.GetService<SupAdminWind>();
+                wind.Show();
+            }
+            else
+            {
+                if (CurrentUser.User.TypeUser == TypeUser.Admin)
+                {
+                    var wind = App.provider.GetService<AdminWindow>();
+                    wind.Show();
+                }
+                else
+                {
+                    var wind = App.provider.GetService<WorkerWind>();
+                    wind.Show();
+                }
+            }
+        }
     }
 }

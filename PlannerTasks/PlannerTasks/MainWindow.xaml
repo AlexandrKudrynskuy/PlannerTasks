@@ -5,7 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlannerTasks"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Login" Height="150" Width="250" Loaded="Window_Loaded"
+        Closing="Window_Closing">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\backgroundLogin.jpg"></ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="10" Grid.Column="0" Grid.Row="0">Login </TextBlock>
+        <ComboBox Name="UsersComboBox" Margin="10,5,10,0" Grid.Column="1" Grid.Row="0" SelectedIndex="0">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Login}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox >
+        <TextBlock Margin="10" Grid.Column="0" Grid.Row="1">Password</TextBlock>
+        <PasswordBox Name="PasswordPasswordBox" Margin="10" Grid.Column="1" Grid.Row="1"> </PasswordBox>
+        <Button Margin="5" Name="LoginButton" Background="Yellow" Click="LoginButton_Click" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="120">
+         login</Button>
+
     </Grid>
 </Window>

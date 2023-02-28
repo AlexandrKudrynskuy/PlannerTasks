@@ -40,7 +40,7 @@ namespace DLL.Repository
                 OldUser.Login = user.Login;
                 OldUser.Password = user.Password;
                 OldUser.Email = user.Email;
-                OldUser.isAdmin = user.isAdmin;
+                OldUser.TypeUser = user.TypeUser;
                 context.Entry(OldUser).State = EntityState.Modified;
                 await context.SaveChangesAsync();
                 return new OperationDetail { IsEror = false, Message = "Update" };
