@@ -9,7 +9,7 @@
     <Window.Resources>
         <Style x:Key="TextStyle" TargetType="TextBlock">
             <Setter Property="Margin" Value="10,2,10,2"></Setter>
-            <Setter Property="Foreground" Value="Yellow"> </Setter>
+            <Setter Property="Foreground" Value="Yellow"></Setter>
             <Setter Property="FontSize" Value="20"></Setter>
         </Style>
         <Style x:Key="TextBoxStyle" TargetType="TextBox">
@@ -26,13 +26,13 @@
         </Style>
         <Style x:Key="AddButonStyle" TargetType="Button">
             <Setter Property="Height" Value="100"></Setter>
-                       
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
                         <StackPanel Margin="10,-10,170,10">
                             <TextBlock Foreground="Aqua" HorizontalAlignment="Center" FontSize="25">додати</TextBlock>
-                            <Image Width="70" HorizontalAlignment="Center" Source="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\Add.png" ></Image>
+                            <Image Width="70" HorizontalAlignment="Center" Source="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\Add.png" ></Image>
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>
@@ -47,7 +47,7 @@
                         <StackPanel Margin="130,-10,0,0">
                             <TextBlock Foreground="Red" HorizontalAlignment="Center" FontSize="25">видалити</TextBlock>
                             <Image Width="70" HorizontalAlignment="Center" Source="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\216658.png" ></Image>
-                           
+
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>
@@ -75,7 +75,7 @@
 
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\e82817fdc52bb535ff447de8a795fcaf.jpg"></ImageBrush>
+            <ImageBrush ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\e82817fdc52bb535ff447de8a795fcaf.jpg"></ImageBrush>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"></ColumnDefinition>
@@ -83,50 +83,54 @@
             <ColumnDefinition Width="4*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-        <Image Name="ChoiseImg" Source="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\quest.png"></Image>
+        <Image Name="ChoiseImg" Source="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\quest.png"></Image>
         <DockPanel LastChildFill="False" Grid.Column="0" Grid.Row="1">
             <Button x:Name="CanselButton" Width="90" Height="90" Margin="0,0,0,0" Click="CanselButton_Click">
                 <Button.Background>
-                    <ImageBrush ImageSource="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\cansel.png"></ImageBrush>
+                    <ImageBrush ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\cansel.png"></ImageBrush>
                 </Button.Background>
-             </Button>
+            </Button>
             <Button  Style="{StaticResource RemoveButonStyle}" Name="RemoveButton" Click="RemoveButton_Click" Margin="-40,80,0,0"></Button>
 
         </DockPanel>
         <Button Grid.Column="1" Grid.Row="1" Style="{StaticResource UpdateButonStyle}" Name="UpdateButton" Click="UpdateButton_Click" Margin="0,110,0,0"></Button>
         <Button  Grid.Column="2" Grid.Row="1" Style="{StaticResource AddButonStyle}" Name="AddButton" Click="AddButton_Click"  Margin="0,80,0,0"></Button>
 
-       
+
         <StackPanel Grid.Row="0" Grid.Column="0" Name="RemoveStackPanel" Visibility="Collapsed" Background="Black">
-        <ComboBox Name="RemoveComboBox" Opacity="0.8" Height="30" VerticalAlignment="Top" Margin="10,20,20,20" FontSize="16" Foreground="White" SelectedIndex="0">
-        <ComboBox.ItemTemplate >
-                <DataTemplate >
-                    <DockPanel LastChildFill="False" Background="Black">
-                        <TextBlock Text="{Binding Login}" Background="Black" Margin="3"></TextBlock>
+            <ComboBox Name="RemoveComboBox" Opacity="0.8" Height="30" VerticalAlignment="Top" Margin="10,20,20,20" FontSize="16" Foreground="White" SelectedIndex="0" SelectionChanged="RemoveComboBox_SelectionChanged">
+                <ComboBox.ItemTemplate >
+                    <DataTemplate >
+                        <DockPanel LastChildFill="False" Background="Black">
+                            <TextBlock Text="{Binding Login}" Background="Black" Margin="3"></TextBlock>
                             <TextBlock Text="{Binding Name}" Background="Black" Margin="3"></TextBlock>
                             <TextBlock Text="{Binding SurName}" Background="Black" Margin="3"></TextBlock>
 
-                    </DockPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <Button Style="{StaticResource RemoveButonStyle}" Margin="-100,70,10,45" Name="RemoveChoiseButton" Click="RemoveChoiseButton_Click" ></Button>
-   </StackPanel>
+                        </DockPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Style="{StaticResource RemoveButonStyle}" Margin="-100,70,10,45" Name="RemoveChoiseButton" Click="RemoveChoiseButton_Click" ></Button>
+        </StackPanel>
         <Grid Grid.Column="2" Grid.Row="0" Name="AddOrUpdateUserGrid" Visibility="Collapsed" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-           <TextBlock Style="{ StaticResource TextStyle}" Text="Логін"/>
-           <TextBlock Style="{ StaticResource TextStyle}" Text="Пароль"/>
-           <TextBlock Style="{ StaticResource TextStyle}" Text="Імя"/>
-           <TextBlock Style="{ StaticResource TextStyle}" Text="Прізвище"/>
-           <TextBlock Style="{ StaticResource TextStyle}" Text="Email"/>
-           <TextBlock Style="{ StaticResource TextStyle}" Text="Моб. тел"/>
-           <Button Name="ChoiseFotoButton" Width="50" Height="16" Margin="10,10,30,0" Click="ChoiseFotoButton_Click"></Button>
-           <CheckBox Name="IsAdminChekBox" Foreground="Yellow" Margin="10,10,30,0" Grid.ColumnSpan="2" IsChecked="False"> Admin</CheckBox>
-        </StackPanel>
+            <StackPanel Grid.Column="0">
+                <TextBlock Style="{ StaticResource TextStyle}" Text="Логін"/>
+                <TextBlock Style="{ StaticResource TextStyle}" Text="Пароль"/>
+                <TextBlock Style="{ StaticResource TextStyle}" Text="Імя"/>
+                <TextBlock Style="{ StaticResource TextStyle}" Text="Прізвище"/>
+                <TextBlock Style="{ StaticResource TextStyle}" Text="Email"/>
+                <TextBlock Style="{ StaticResource TextStyle}" Text="Моб. тел"/>
+                <Button Name="ChoiseFotoButton" Width="50" Height="16" Margin="10,10,30,0" Click="ChoiseFotoButton_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\Foto.png">                            </ImageBrush>
+                    </Button.Background>
+                </Button>
+                <CheckBox Name="IsAdminChekBox" Foreground="Yellow" Margin="10,10,30,0" Grid.ColumnSpan="2" IsChecked="False">Admin</CheckBox>
+            </StackPanel>
             <StackPanel Grid.Column="1" Name="AddStackPanel">
                 <TextBox Name="LoginTextBox" Style="{ StaticResource TextBoxStyle}"  LostFocus="LoginTextBox_LostFocus"/>
                 <PasswordBox Name="PSWDPasswordBox" Style="{ StaticResource  PswdBoxStyle}" LostFocus="PSWDPasswordBox_LostFocus"/>
@@ -135,10 +139,15 @@
                 <TextBox Name="EmailTextBox" Style="{ StaticResource TextBoxStyle}" LostFocus="EmailTextBox_LostFocus" />
                 <TextBox Name="PhoneNameTextBox" Style="{ StaticResource TextBoxStyle}" LostFocus="PhoneNameTextBox_LostFocus" />
                 <TextBox Name="PhotoNameTextBox" Style="{ StaticResource TextBoxStyle}" IsReadOnly="True"/>
-                </StackPanel>
+            </StackPanel>
             <Button x:Name="AddChoiseBtn" Click="AddChoiseBtn_Click"  Grid.ColumnSpan="2" Grid.Column="0" Width="60" Height="60" VerticalAlignment="Bottom" Margin="90,0,0,-20" Visibility="Collapsed">
                 <Button.Background>
-                    <ImageBrush ImageSource="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\Ok.png"></ImageBrush>
+                    <ImageBrush ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\Ok.png"></ImageBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="UpdateChoiseBtn" Click="UpdateChoiseBtn_Click"  Grid.ColumnSpan="2" Grid.Column="0" Width="60" Height="60" VerticalAlignment="Bottom" Margin="90,0,0,-20" Visibility="Collapsed">
+                <Button.Background>
+                    <ImageBrush ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\Ok.png"></ImageBrush>
                 </Button.Background>
             </Button>
         </Grid>

@@ -20,6 +20,7 @@
     <None Remove="Img\ads.jpg" />
     <None Remove="Img\cansel.png" />
     <None Remove="Img\e82817fdc52bb535ff447de8a795fcaf.jpg" />
+    <None Remove="Img\Foto.png" />
     <None Remove="Img\Ok.png" />
     <None Remove="Img\quest.png" />
     <None Remove="Img\Upd.png" />
@@ -36,6 +37,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Img\e82817fdc52bb535ff447de8a795fcaf.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Img\Foto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Img\Ok.png">

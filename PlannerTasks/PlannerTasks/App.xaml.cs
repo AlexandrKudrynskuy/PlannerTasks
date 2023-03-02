@@ -1,6 +1,7 @@
 ﻿using BLL.Service;
 using DLL.Context;
 using DLL.Repository;
+using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic;
@@ -36,13 +37,20 @@ namespace PlannerTasks
             services.AddTransient<AdminWindow>();
             services.AddTransient<WorkerWind>();
 
+            services.AddTransient<StatusRepository>();
+            services.AddTransient<StatusService>();
+            services.AddTransient<TypeTaskRepository>();
+            services.AddTransient<TypeTaskService>();
+            services.AddTransient<PriorityRepository>();
+            services.AddTransient<PriorityService>();
+            services.AddTransient<MyTaskRepository>();
+            services.AddTransient<MyTaskService>();
 
         }
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //var wind = provider.GetService<MainWindow>();
-            var wind = provider.GetService<SupAdminWind>();
-
+            var wind = provider.GetService<AdminWindow>();
             wind.Show();
         }
     }

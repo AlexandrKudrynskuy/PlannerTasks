@@ -32,6 +32,6 @@ namespace DLL.Repository
         public virtual async Task<IReadOnlyCollection<TEntity>> GetALLAsync() => await Entities.ToListAsync().ConfigureAwait(false);
         public virtual async Task<IReadOnlyCollection<TEntity>> GetFromConditionAsync(Expression<Func<TEntity, bool>> condition) => await Entities.Where(condition).ToListAsync().ConfigureAwait(false);
 
-     
+
     }
 }

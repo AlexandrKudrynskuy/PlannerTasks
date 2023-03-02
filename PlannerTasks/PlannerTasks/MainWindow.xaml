@@ -8,9 +8,7 @@
         Title="Login" Height="150" Width="250" Loaded="Window_Loaded"
         Closing="Window_Closing">
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="D:\Git\PlannerTasks\PlannerTasks\PlannerTasks\Img\backgroundLogin.jpg"></ImageBrush>
-        </Grid.Background>
+       
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>

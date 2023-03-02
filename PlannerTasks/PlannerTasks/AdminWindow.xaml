@@ -5,8 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlannerTasks"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800">
+        Title="AdminWindow" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Налаштування задач">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"> </RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+             
+                <StackPanel Grid.Column="0" Margin="10">
+                    <GroupBox Header="Операції" Name="operationGroopBox">
+                        <StackPanel>
+                        <RadioButton x:Name="AddRadioBtn" IsChecked="True" Checked="AddRadioBtn_Checked"> Додати</RadioButton>
+                        <RadioButton x:Name="UpdateRadioBtn" Checked="UpdateRadioBtn_Checked" >змінити</RadioButton>
+                        <RadioButton x:Name="RamoveRadioBtn" Checked="RamoveRadioBtn_Checked">видалити</RadioButton>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="10">
+                        <Label> Оберіть колонку</Label>
+                        <ComboBox Name="ChoiseFieldComboBox" SelectedIndex="0" SelectionChanged="ChoiseFieldComboBox_SelectionChanged">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="10">
+                        <Label Name="valueLabel" Visibility="Collapsed" >Оберіть значення</Label>
+                        <ComboBox Name="ChoiseValueComboBox" SelectedIndex="0" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Name="AddUpdateStackPanel" Grid.Row="1" Grid.Column="0" Margin="10" Orientation="Horizontal" Grid.ColumnSpan="3">
+                        <TextBlock Name="HeaderFieldTextBlock" Margin="10" Height="20" VerticalAlignment="Top" >Назва</TextBlock>
+                        <TextBox Name="NameFieldTextBox" Margin="10" Width="250" VerticalAlignment="Top"></TextBox>
+                        <Button Name ="OkButton" Width="50" Height="20" VerticalAlignment="Top" Margin="10" Click="OkButton_Click">Ok</Button>
+                        
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

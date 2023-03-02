@@ -45,13 +45,42 @@ namespace PlannerTasks
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-       
+
+            RemoveStackPanel.Visibility = Visibility.Visible;
+            UpdateChoiseBtn.Visibility = Visibility.Visible;
+            AddOrUpdateUserGrid.Visibility = Visibility.Visible;
+            RemoveChoiseButton.Visibility = Visibility.Collapsed;
+            RemoveComboBox.ItemsSource = await userService.GetAllAsync();
+            if (RemoveComboBox.SelectedItem is User user)
+            {
+                NameTextBox.Text = User.Name;
+                SurNameTextBox.Text = User.SurName;
+                LoginTextBox.Text = User.Login;
+                PSWDPasswordBox.Password = User.Password;
+                PhotoNameTextBox.Text = User.Photo;
+                PhoneNameTextBox.Text = User.Phone;
+                EmailTextBox.Text = User.Email;
+                if (User.TypeUser == TypeUser.Admin)
+                {
+                    IsAdminChekBox.IsChecked = true;
+                }
+                else
+                {
+                    IsAdminChekBox.IsChecked = false;
+
+                }
+            }
+            AddButton.Visibility = Visibility.Collapsed;
+            UpdateButton.Visibility = Visibility.Collapsed;
+            RemoveButton.Visibility = Visibility.Collapsed;
+            
         }
 
         private async void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             RemoveComboBox.ItemsSource = await userService.GetAllAsync();
             RemoveStackPanel.Visibility = Visibility.Visible;
+            RemoveChoiseButton.Visibility = Visibility.Visible;
             AddButton.Visibility = Visibility.Collapsed;
             UpdateButton.Visibility = Visibility.Collapsed;
             RemoveButton.Visibility = Visibility.Collapsed;
@@ -114,7 +143,7 @@ namespace PlannerTasks
                     }
                 }
                 PSWDPasswordBox.Password = string.Empty;
-             
+
                 RemoveStackPanel.Visibility = Visibility.Collapsed;
                 AddOrUpdateUserGrid.Visibility = Visibility.Collapsed;
                 AddButton.Visibility = Visibility.Visible;
@@ -146,7 +175,7 @@ namespace PlannerTasks
                         LoginPopup.IsOpen = true;
                     }
                 }
-                else 
+                else
                 {
                     MessageBox.Show($"User {textBox.Text} існує");
                 }
@@ -206,7 +235,7 @@ namespace PlannerTasks
 
         private void EmailTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (EmailTextBox.Text!=string.Empty)
+            if (EmailTextBox.Text != string.Empty)
             {
                 User.Email = EmailTextBox.Text;
                 EmptyPopup.IsOpen = false;
@@ -234,11 +263,9 @@ namespace PlannerTasks
                 NumberPopup.PlacementTarget = (UIElement)e.Source;
                 NumberPopup.IsOpen = true;
             }
-                IsAllTrue();
-            
-        }
+            IsAllTrue();
 
-    
+        }
 
         private void CanselButton_Click(object sender, RoutedEventArgs e)
         {
@@ -247,6 +274,17 @@ namespace PlannerTasks
             AddButton.Visibility = Visibility.Visible;
             UpdateButton.Visibility = Visibility.Visible;
             RemoveButton.Visibility = Visibility.Visible;
+            User = new User();
+            foreach (var child in AddStackPanel.Children)
+            {
+                if (child is TextBox textBox)
+                {
+                    textBox.Text = string.Empty;
+                }
+            }
+            PSWDPasswordBox.Password = string.Empty;
+
+
         }
 
         private void IsAllTrue()
@@ -255,7 +293,7 @@ namespace PlannerTasks
                User.Name != null &&
                User.Login != null &&
                User.Email != null &&
-               User.Phone != null &&               
+               User.Phone != null &&
                User.Photo != null)
             {
                 AddChoiseBtn.Visibility = Visibility.Visible;
@@ -275,6 +313,64 @@ namespace PlannerTasks
                 User.Photo = Helper.PhotoPathUser + "\\" + temp;
             }
             IsAllTrue();
+        }
+
+        private void RemoveComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        if (RemoveComboBox.SelectedItem is User user)
+        {
+                User = user;
+            NameTextBox.Text = User.Name;
+            SurNameTextBox.Text = User.SurName;
+            LoginTextBox.Text = User.Login;
+            PSWDPasswordBox.Password = User.Password;
+            PhotoNameTextBox.Text = User.Photo;
+            PhoneNameTextBox.Text = User.Phone;
+            EmailTextBox.Text = User.Email;
+            if (User.TypeUser == TypeUser.Admin)
+            {
+                IsAdminChekBox.IsChecked = true;
+            }
+            else
+            {
+                IsAdminChekBox.IsChecked = false;
+
+            }
+        }
+        }
+
+        private async void UpdateChoiseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (User.TypeUser == TypeUser.SuperAdmin)
+            {
+                MessageBox.Show("SuperAdmin неможливо змынити");
+            }
+            else 
+            {
+                var res = await userService.UpdateAsync(User.Id,User);
+                if (res.IsEror == true)
+                {
+                    MessageBox.Show($"У користувача {User.Login} змынено дані");
+                    User = new User();
+                }
+                else
+                {
+                    MessageBox.Show($"{res.Message}");
+                }
+            }
+            RemoveStackPanel.Visibility = Visibility.Collapsed;
+            AddOrUpdateUserGrid.Visibility = Visibility.Collapsed;
+            AddButton.Visibility = Visibility.Visible;
+            UpdateButton.Visibility = Visibility.Visible;
+            RemoveButton.Visibility = Visibility.Visible;
+            foreach (var child in AddStackPanel.Children)
+            {
+                if (child is TextBox textBox)
+                {
+                    textBox.Text = string.Empty;
+                }
+            }
+            PSWDPasswordBox.Password = string.Empty;
         }
     }
 }
