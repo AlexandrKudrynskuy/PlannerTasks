@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlannerTasks"
         mc:Ignorable="d"
-        Title="AdminWindow" Height="450" Width="800"
+        Title="AdminWindow" Height="450" Width="1100"
         Loaded="Window_Loaded">
     <Grid>
         <TabControl>
-            <TabItem Header="Налаштування задач">
+            <TabItem Header="Налаштування задач" Name="SetingTaskTabItem">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -18,22 +18,22 @@
 
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"> </RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
                         <RowDefinition Height="5*"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-             
-                <StackPanel Grid.Column="0" Margin="10">
-                    <GroupBox Header="Операції" Name="operationGroopBox">
-                        <StackPanel>
-                        <RadioButton x:Name="AddRadioBtn" IsChecked="True" Checked="AddRadioBtn_Checked"> Додати</RadioButton>
-                        <RadioButton x:Name="UpdateRadioBtn" Checked="UpdateRadioBtn_Checked" >змінити</RadioButton>
-                        <RadioButton x:Name="RamoveRadioBtn" Checked="RamoveRadioBtn_Checked">видалити</RadioButton>
-                        </StackPanel>
-                    </GroupBox>
-                </StackPanel>
+
+                    <StackPanel Grid.Column="0" Margin="10">
+                        <GroupBox Header="Операції" Name="operationGroopBox">
+                            <StackPanel>
+                                <RadioButton x:Name="AddRadioBtn" IsChecked="True" Checked="AddRadioBtn_Checked">Додати</RadioButton>
+                                <RadioButton x:Name="UpdateRadioBtn" Checked="UpdateRadioBtn_Checked" >змінити</RadioButton>
+                                <RadioButton x:Name="RamoveRadioBtn" Checked="RamoveRadioBtn_Checked">видалити</RadioButton>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
                     <StackPanel Grid.Column="1" Margin="10">
-                        <Label> Оберіть колонку</Label>
+                        <Label>Оберіть колонку</Label>
                         <ComboBox Name="ChoiseFieldComboBox" SelectedIndex="0" SelectionChanged="ChoiseFieldComboBox_SelectionChanged">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
@@ -56,8 +56,178 @@
                         <TextBlock Name="HeaderFieldTextBlock" Margin="10" Height="20" VerticalAlignment="Top" >Назва</TextBlock>
                         <TextBox Name="NameFieldTextBox" Margin="10" Width="250" VerticalAlignment="Top"></TextBox>
                         <Button Name ="OkButton" Width="50" Height="20" VerticalAlignment="Top" Margin="10" Click="OkButton_Click">Ok</Button>
-                        
+
                     </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Планування задач" IsSelected="True">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Grid.Row="0" Background="Bisque">
+                        <TextBlock Margin="2"> Назва</TextBlock>
+                        <TextBox Margin="2" Name="AddUpdateTaskTextBox" Width="250"></TextBox>
+                        <TextBlock Margin="2"> Опис</TextBlock>
+                        <TextBox Margin="2" Name="DescriptionUpdateTaskTextBox" Width="750"></TextBox>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="2" Width="90">Тип задачі</TextBlock>
+                            <ComboBox Width="90" Name="AddUpdateTypeCombox" SelectedIndex="0" SelectionChanged="AddUpdateCombox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="2" Width="90">Статус</TextBlock>
+                            <ComboBox Width="90" Name="AddUpdateStatusCombox" SelectedIndex="0" SelectionChanged="AddUpdateCombox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="2" Width="90">Пріорітет</TextBlock>
+                            <ComboBox Width="90" Name="AddUpdatePrioritetCombox" SelectedIndex="0" SelectionChanged="AddUpdateCombox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="2" Width="90">Автор</TextBlock>
+                            <ComboBox Width="90" Name="AddUpdateAutorCombox" SelectedIndex="0" SelectionChanged="AddUpdateCombox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SurName}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="2" Width="90">Виконавець</TextBlock>
+                            <ComboBox Width="90" Name="AddUpdateWorkerCombox" SelectedIndex="0" SelectionChanged="AddUpdateCombox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SurName}"></TextBlock>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="2" Width="90">Початок</TextBlock>
+                            <DatePicker Width="90" Name="AddUpdateStartPicer"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="2" Width="100">Час на виконання</TextBlock>
+                            <TextBox Margin="2" Name="AddUpdateTimeSpanTextBox" Width="100"></TextBox>
+                        </StackPanel>
+
+                   
+
+                        <StackPanel Orientation="Vertical">
+                            <Button x:Name="AddUpdateNewTaskBtn" Content="Ok" Margin="0,20" Click="AddUpdateNewTaskBtn_Click"></Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Button x:Name="UpdateTaskBtn" Content="Update" Margin="0,20" Click="UpdateTaskBtn_Click" Visibility="Collapsed"></Button>
+                        </StackPanel>
+
+                    </WrapPanel>
+                    <Grid Grid.Row="1" Grid.Column="0" Background="AliceBlue">
+                       
+                        <Grid Grid.Row="0" Grid.Column="1" Background="Aqua">
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top">
+                                <TextBlock Margin="1" Width="100"> Назва</TextBlock>
+                                <TextBlock Margin="1" Width="150"> Опис</TextBlock>
+                                <TextBlock Margin="1" Width="70"> Тип задачі</TextBlock>
+                                <TextBlock Margin="1" Width="70"> Статус</TextBlock>
+                                <TextBlock Margin="1" Width="70"> Пріорітет</TextBlock>
+                                <TextBlock Margin="1" Width="70"> Автор</TextBlock>
+                                <TextBlock Margin="1" Width="70"> Виконавець</TextBlock>
+                                <TextBlock Margin="1" Width="102"> Початок</TextBlock>
+                                <TextBlock Margin="1" Width="90"> час виконання</TextBlock>
+                                <TextBlock Margin="1" Width="102"> Закінчення</TextBlock>
+
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="0,30,0,0">
+                                <Button Name="ShowAllBtn" Margin="1" Width="100" Click="ShowAllBtn_Click"> Відобразити все</Button>
+                                <TextBlock Margin="1" Width="150"></TextBlock>
+                                <ComboBox Margin="1" Width="70" Name="TypeTaskComboBox" SelectionChanged="TypeTaskComboBox_SelectionChanged" SelectedIndex="0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <ComboBox Margin="1" Width="70" Name="statusComboBox" SelectionChanged="statusComboBox_SelectionChanged" SelectedIndex="0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <ComboBox Margin="1" Width="70" Name="priorityComboBox" SelectionChanged="priorityComboBox_SelectionChanged" SelectedIndex="0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <ComboBox Margin="1" Width="70" Name="autorComboBox" SelectionChanged="autorComboBox_SelectionChanged" SelectedIndex="0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding SurName}"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <ComboBox Margin="1" Width="70" Name="workerComboBox" SelectedIndex="0" SelectionChanged="workerComboBox_SelectionChanged">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding SurName}"></TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                                <DatePicker Name="DateStart" Margin="1"></DatePicker>
+                                <TextBox Width="90" Margin="1" Name="TimeSpanTextBox"></TextBox>
+                                <DatePicker Name="DateFinich"></DatePicker>
+                            </StackPanel>
+                            <ListView Name="TaskListBox" Margin="-10,60,0,0">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Background="AntiqueWhite" Tag="{Binding Id}">
+                                            <TextBox Margin="1" Width="100" Text="{Binding Name}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="150" Text="{Binding Description}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="70" Text="{Binding TypeTask.Name}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="70" Text="{Binding Status.Name}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="70" Text="{Binding Priority.Name}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="70" Text="{Binding Admin.SurName}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="70" Text="{Binding Worker.SurName}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="102" Text="{Binding DateStart}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="90" Text="{Binding TimeSpan}" IsReadOnly="True"></TextBox>
+                                            <TextBox Margin="1" Width="102" Text="{Binding DateFinich}" IsReadOnly="True"></TextBox>
+                                            <Button Margin="1" x:Name="RemovePopUpBtn" Click="RemovePopUpBtn_Click" Tag="{Binding Id}">Remove</Button>
+                                            <Button Margin="1" x:Name="UpdatePopUpBtn" Click="UpdatePopUpBtn_Click" Tag="{Binding Id}">Update</Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                                  
+                            </ListView>
+                         
+
+                        </Grid>
+                    </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

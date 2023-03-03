@@ -23,6 +23,6 @@ namespace Domain.Model
         public int WorkerId { get; set; }
         public DateTime? DateStart { get; set; }
         public DateTime? DateFinich { get; set; }
-        public TimeSpan? TimeSpan { get; set; } 
+        public int TimeSpan { get; set; } 
     }
 }

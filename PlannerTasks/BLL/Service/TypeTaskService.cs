@@ -19,6 +19,5 @@ namespace BLL.Service
         public async Task<OperationDetail> UpdateAsync(int id, TypeTask obj) => await repository.UpdateAsync(id, obj);
         public async Task<IReadOnlyCollection<TypeTask>> GetAllAsync() => await repository.GetALLAsync();
         public async Task<IReadOnlyCollection<TypeTask>> GetFromCondition(Expression<Func<TypeTask, bool>> condition) => await repository.GetFromConditionAsync(condition);
-
-    }
+    } 
 }
