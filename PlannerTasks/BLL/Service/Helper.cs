@@ -22,41 +22,41 @@ namespace Bll
 
         public static bool IsCorectLogin(this string str)
         {
-            //string patern = @"^[A-z0-9_-]{3,40}$";
-            //var regex = new Regex(patern);
-            //var match = regex.Matches(str);
-            //if (match.Count == 1)
-            //{
-            //    return true;
-            //}
-            //return false;
+            string patern = @"^[A-z0-9_-]{3,40}$";
+            var regex = new Regex(patern);
+            var match = regex.Matches(str);
+            if (match.Count == 1)
+            {
+                return true;
+            }
+            return false;
             return true;
 
         }
         public static bool IsCorectPassword(this string str)
         {
-            //string patern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,16}$";
-            //var regex = new Regex(patern);
-            //var match = regex.Matches(str);
-            //if (match.Count == 1)
-            //{
-            //    return true;
-            //}
-            //return false;
+            string patern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9])\S{8,16}$";
+            var regex = new Regex(patern);
+            var match = regex.Matches(str);
+            if (match.Count == 1)
+            {
+                return true;
+            }
+            return false;
             return true;
 
         }
         public static bool IsCorectName(this string str)
         {
-            //string patern = @"^([А-ЯІ]{1}[а-яі]{1,23}|[A-Z]{1}[a-z]{1,23})$";
-            //var regex = new Regex(patern);
-            //var match = regex.Matches(str);
-            //if (match.Count == 1)
-            //{
-            //    return true;
+            string patern = @"^([А-ЯІ]{1}[а-яі]{1,23}|[A-Z]{1}[a-z]{1,23})$";
+            var regex = new Regex(patern);
+            var match = regex.Matches(str);
+            if (match.Count == 1)
+            {
+                return true;
 
-            //}
-            //return false;
+            }
+            return false;
 
             return true;
 

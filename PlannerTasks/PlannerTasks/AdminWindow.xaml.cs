@@ -561,5 +561,18 @@ namespace PlannerTasks
             this.Width = 1100;
 
         }
+
+        private async void ClearFiltrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TypeTaskComboBox.SelectedIndex = -1;
+            statusComboBox.SelectedIndex = -1;
+            priorityComboBox.SelectedIndex = -1;
+            autorComboBox.SelectedIndex = -1;
+            workerComboBox.SelectedIndex = -1;
+            //DateStart.SelectedDate = DateTime.Now;
+            //DateFinich.SelectedDate = DateTime.Now;
+            TaskListBox.ItemsSource = await myTaskService.GetAllAsync();
+
+        }
     }
 }

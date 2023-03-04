@@ -36,6 +36,7 @@ namespace PlannerTasks
             typeTaskService = _typeTaskService;
             priorityService = _priorityService;
             MyTask = new MyTask();
+            //CurrentUser.SetCurrentUser(new User { Id = 3 });
             MyTask.WorkerId = CurrentUser.User.Id;
 
         }
@@ -169,6 +170,21 @@ namespace PlannerTasks
         {
             chaingeStatusPopup.IsOpen = false;
             var res = await myTaskService.UpdateAsync(MyTask.Id, MyTask);
+
+        }
+
+        private async void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TypeTaskComboBox.SelectedIndex = -1;
+            statusComboBox.SelectedIndex = -1;
+            priorityComboBox.SelectedIndex = -1;
+            autorComboBox.SelectedIndex = -1;
+            //DateStart.SelectedDate = DateTime.Now;
+            //DateFinich.SelectedDate = DateTime.Now;
+            MyTask = new MyTask();
+            MyTask.WorkerId = CurrentUser.User.Id;
+            TaskListBox.ItemsSource = await myTaskService.GetFromConditionAsync(x => x.WorkerId == CurrentUser.User.Id);
+
 
         }
     }

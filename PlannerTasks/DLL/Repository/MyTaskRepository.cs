@@ -41,45 +41,44 @@ namespace DLL.Repository
         {
             var res = Entities.AsQueryable();
 
-            if (myTask.StatusId!= null)
+            if (myTask.StatusId!= 0)
             {
                 res = res.Where(x=>x.StatusId==myTask.StatusId);
+
             }
-            if (myTask.PriorityId != null)
+            if (myTask.PriorityId != 0)
             {
                 res = res.Where(x => x.PriorityId == myTask.PriorityId);
             }
-            if (myTask.TypeTaskId != null)
+            if (myTask.TypeTaskId != 0)
             {
                 res = res.Where(x => x.TypeTaskId == myTask.TypeTaskId);
             }
 
-            if (myTask.AdminId != null)
+            if (myTask.AdminId != 0)
             {
                 res = res.Where(x => x.AdminId == myTask.AdminId);
             }
 
-            if (myTask.WorkerId != null)
+            if (myTask.WorkerId != 0)
             {
                 res = res.Where(x => x.WorkerId == myTask.WorkerId);
             }
 
-            if (myTask.DateStart != null)
+            if (myTask.DateStart!= DateTime.MinValue)
             {
-                res = res.Where(x => x.DateStart >= myTask.DateStart);
+                res = res.Where(x => x.DateStart <= myTask.DateStart);
             }
 
             if (myTask.DateFinich != null)
             {
-                res = res.Where(x => x.DateFinich <= myTask.DateFinich);
+                res = res.Where(x => x.DateFinich >= myTask.DateFinich);
             }
 
             //if (myTask.TimeSpan != null)
             //{
             //    res = res.Where(x => x.TimeSpan == myTask.TimeSpan);
             //}
-
-
             return res.ToList();
         }
         public async virtual Task<OperationDetail> UpdateAsync(int id, MyTask entity)

@@ -50,7 +50,7 @@ namespace PlannerTasks
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var wind = provider.GetService<MainWindow>();
-            //var wind = provider.GetService<AdminWindow>();
+            //var wind = provider.GetService<WorkerWind>();
             wind.Show();
         }
     }

@@ -23,7 +23,9 @@
 
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="10,30,0,0">
-                <Button Name="ShowAllBtn" Margin="1" Width="100" Click="ShowAllBtn_Click">Відобразити все</Button>
+                <Button Name="ShowAllBtn" Margin="2" Width="48" Click="ShowAllBtn_Click">Всы</Button>
+                <Button Name="ClearBtn" Margin="2" Width="48" Click="ClearBtn_Click">Очистити</Button>
+
                 <TextBlock Margin="1" Width="150"></TextBlock>
                 <ComboBox Margin="1" Width="70" Name="TypeTaskComboBox" SelectionChanged="TypeTaskComboBox_SelectionChanged" SelectedIndex="0">
                     <ComboBox.ItemTemplate>
