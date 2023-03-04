@@ -5,8 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlannerTasks"
         mc:Ignorable="d"
-        Title="WorkerWind" Height="450" Width="800">
+        Title="WorkerWind" Height="450" Width="900" Loaded="Window_Loaded">
     <Grid>
-        
+
+        <Grid Grid.Row="0" Grid.Column="1" Background="LightGray">
+            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="10">
+                <TextBlock Margin="1" Width="100"> Назва</TextBlock>
+                <TextBlock Margin="1" Width="150"> Опис</TextBlock>
+                <TextBlock Margin="1" Width="70"> Тип задачі</TextBlock>
+                <TextBlock Margin="1" Width="70"> Статус</TextBlock>
+                <TextBlock Margin="1" Width="70"> Пріорітет</TextBlock>
+                <TextBlock Margin="1" Width="70"> Автор</TextBlock>
+                <TextBlock Margin="1" Width="102"> Початок</TextBlock>
+                <TextBlock Margin="1" Width="90"> час виконання</TextBlock>
+                <TextBlock Margin="1" Width="102"> Закінчення</TextBlock>
+
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top" Margin="10,30,0,0">
+                <Button Name="ShowAllBtn" Margin="1" Width="100" Click="ShowAllBtn_Click">Відобразити все</Button>
+                <TextBlock Margin="1" Width="150"></TextBlock>
+                <ComboBox Margin="1" Width="70" Name="TypeTaskComboBox" SelectionChanged="TypeTaskComboBox_SelectionChanged" SelectedIndex="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Margin="1" Width="70" Name="statusComboBox" SelectionChanged="statusComboBox_SelectionChanged" SelectedIndex="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Margin="1" Width="70" Name="priorityComboBox" SelectionChanged="priorityComboBox_SelectionChanged" SelectedIndex="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox Margin="1" Width="70" Name="autorComboBox" SelectionChanged="autorComboBox_SelectionChanged" SelectedIndex="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding SurName}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            
+                <DatePicker Name="DateStart" Margin="1" SelectedDateChanged="DateStart_SelectedDateChanged"></DatePicker>
+                <TextBox Width="90" Margin="1" Name="TimeSpanTextBox" IsReadOnly="True"></TextBox>
+                <DatePicker Name="DateFinich" SelectedDateChanged="DateFinich_SelectedDateChanged"></DatePicker>
+            </StackPanel>
+            <ListView Name="TaskListBox" Margin="-10,60,0,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal"  Tag="{Binding Id}">
+                            <TextBox Margin="1" Width="100" Text="{Binding Name}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="150" Text="{Binding Description}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="70" Text="{Binding TypeTask.Name}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="70" Text="{Binding Status.Name}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="70" Text="{Binding Priority.Name}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="70" Text="{Binding Admin.SurName}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="102" Text="{Binding DateStart}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="90" Text="{Binding TimeSpan}" IsReadOnly="True"></TextBox>
+                            <TextBox Margin="1" Width="102" Text="{Binding DateFinich}" IsReadOnly="True"></TextBox>
+                            <Button Margin="1" x:Name="UpdateStatusBtn" Click="UpdateStatusBtn_Click" Tag="{Binding Id}">UpdateStatus</Button>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+            <Popup x:Name="chaingeStatusPopup">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox Margin="1" Width="70" Name="ChaingeStatusComboBox" SelectionChanged="statusComboBox_SelectionChanged" SelectedIndex="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                    <Button Margin="2" Name="ChaingeButton" Click="ChaingeButton_Click"> update</Button>
+
+                </StackPanel>
+            </Popup>
+
+        </Grid>
     </Grid>
 </Window>

@@ -42,9 +42,7 @@ namespace PlannerTasks
             typeTaskService = _typeTaskService;
             priorityService = _priorityService;
             Field = AddField();
-
-
-        }
+      }
 
         private async void InitializeFilter()
         {
@@ -55,13 +53,11 @@ namespace PlannerTasks
             workerComboBox.Items.Clear();
 
             AddUpdateTypeCombox.Items.Clear();
-            AddUpdateAutorCombox.Items.Clear();
             AddUpdatePrioritetCombox.Items.Clear();
             AddUpdateWorkerCombox.Items.Clear();
             AddUpdateStatusCombox.Items.Clear();
 
             AddUpdateTypeCombox.ItemsSource = await typeTaskService.GetAllAsync();
-            AddUpdateAutorCombox.ItemsSource = await userService.GetFromCondition(x => x.TypeUser == TypeUser.Admin);
             AddUpdatePrioritetCombox.ItemsSource = await priorityService.GetAllAsync();
             AddUpdateWorkerCombox.ItemsSource = await userService.GetFromCondition(x => x.TypeUser == TypeUser.Worker);
             AddUpdateStatusCombox.ItemsSource = await statusService.GetAllAsync();
@@ -81,7 +77,6 @@ namespace PlannerTasks
             TaskListBox.Items.Clear();
             InitializeFilter();
             MyTask = new MyTask();
-            //TaskListBox.ItemsSource = MyTasks;
         }
         #region Seting field
         private void AddRadioBtn_Checked(object sender, RoutedEventArgs e)
@@ -312,7 +307,7 @@ namespace PlannerTasks
                     MyTask.StatusId = field.Id;
 
                 }
-                var res = await myTaskService.Filter(MyTask);
+                var res = await myTaskService.FilterAsync(MyTask);
                 TaskListBox.ItemsSource = res;
             }
 
@@ -326,7 +321,7 @@ namespace PlannerTasks
                     MyTask.TypeTaskId = field.Id;
 
                 }
-                var res = await myTaskService.Filter(MyTask);
+                var res = await myTaskService.FilterAsync(MyTask);
                 TaskListBox.ItemsSource = res;
             }
         }
@@ -339,7 +334,7 @@ namespace PlannerTasks
                     MyTask.PriorityId = field.Id;
 
                 }
-                var res = await myTaskService.Filter(MyTask);
+                var res = await myTaskService.FilterAsync(MyTask);
                 TaskListBox.ItemsSource = res;
             }
         }
@@ -353,7 +348,7 @@ namespace PlannerTasks
                     MyTask.AdminId = field.Id;
 
                 }
-                var res = await myTaskService.Filter(MyTask);
+                var res = await myTaskService.FilterAsync(MyTask);
                 TaskListBox.ItemsSource = res;
             }
         }
@@ -367,7 +362,7 @@ namespace PlannerTasks
                     MyTask.WorkerId = field.Id;
 
                 }
-                var res = await myTaskService.Filter(MyTask);
+                var res = await myTaskService.FilterAsync(MyTask);
                 TaskListBox.ItemsSource = res;
             }
         }
@@ -401,10 +396,8 @@ namespace PlannerTasks
                     MyTask.StatusId = status.Id;
                 }
 
-                if (AddUpdateAutorCombox.SelectedItem is User autor)
-                {
-                    MyTask.AdminId = autor.Id;
-                }
+                    MyTask.AdminId = CurrentUser.User.Id;
+
                 if (AddUpdateWorkerCombox.SelectedItem is User worker)
                 {
                     MyTask.WorkerId = worker.Id;
@@ -435,8 +428,17 @@ namespace PlannerTasks
             {
                 int id;
                 int.TryParse(button.Tag.ToString(), out id);
-                var res = await myTaskService.DeleteAsync(id);
-                TaskListBox.ItemsSource = await myTaskService.GetAllAsync();
+                var CurentAdmin = (await myTaskService.GetFromConditionAsync(x=>x.Id==id)).First();
+                if (CurentAdmin.AdminId == CurrentUser.User.Id)
+                {
+                    var res = await myTaskService.DeleteAsync(id);
+                    TaskListBox.ItemsSource = await myTaskService.GetAllAsync();
+                    MessageBox.Show(res.Message);
+                }
+                else 
+                {
+                    MessageBox.Show("Ви не можете видаляти завдання ынших авторів");
+                }
             }
         }
 
@@ -448,83 +450,75 @@ namespace PlannerTasks
             {
                 int id;
                 int.TryParse(button.Tag.ToString(), out id);
-                var res = await myTaskService.GetFromCondition(x=>x.Id == id);
-                MyTask = res.First();
-                AddUpdateTaskTextBox.Text = MyTask.Name;
-                DescriptionUpdateTaskTextBox.Text= MyTask.Description;
-
-                foreach (var it in AddUpdateStatusCombox.Items)
+                var res = await myTaskService.GetFromConditionAsync(x=>x.Id == id);
+                var CurentAdmin = (await myTaskService.GetFromConditionAsync(x => x.Id == id)).First();
+                if (CurentAdmin.AdminId == CurrentUser.User.Id)
                 {
-                    if (it is Status status)
+                    MyTask = res.First();
+                    AddUpdateTaskTextBox.Text = MyTask.Name;
+                    DescriptionUpdateTaskTextBox.Text = MyTask.Description;
+                    foreach (var it in AddUpdateStatusCombox.Items)
                     {
-                        if (status.Id == MyTask.StatusId)
+                        if (it is Status status)
                         {
-                            AddUpdateStatusCombox.SelectedItem = status;
+                            if (status.Id == MyTask.StatusId)
+                            {
+                                AddUpdateStatusCombox.SelectedItem = status;
+                            }
+                        }
+
+                    }
+                    foreach (var it in AddUpdatePrioritetCombox.Items)
+                    {
+                        if (it is Priority priority)
+                        {
+                            if (priority.Id == MyTask.PriorityId)
+                            {
+                                AddUpdatePrioritetCombox.SelectedItem = priority;
+                            }
+                        }
+
+                    }
+                    foreach (var it in AddUpdateTypeCombox.Items)
+                    {
+                        if (it is TypeTask typeTask)
+                        {
+                            if (typeTask.Id == MyTask.TypeTaskId)
+                            {
+                                AddUpdateTypeCombox.SelectedItem = typeTask;
+                            }
                         }
                     }
-                
-                }
-
-                foreach (var it in AddUpdatePrioritetCombox.Items)
-                {
-                    if (it is Priority priority)
+                    foreach (var it in AddUpdateWorkerCombox.Items)
                     {
-                        if (priority.Id == MyTask.PriorityId)
+                        if (it is User worker)
                         {
-                            AddUpdatePrioritetCombox.SelectedItem = priority;
+                            if (worker.Id == MyTask.WorkerId)
+                            {
+                                AddUpdateWorkerCombox.SelectedItem = worker;
+                            }
                         }
                     }
-
+                    AddUpdateStartPicer.SelectedDate = MyTask.DateStart;
+                    AddUpdateTimeSpanTextBox.Text = MyTask.TimeSpan.ToString();
                 }
-
-                foreach (var it in AddUpdateTypeCombox.Items)
+                else
                 {
-                    if (it is TypeTask typeTask)
-                    {
-                        if (typeTask.Id == MyTask.TypeTaskId)
-                        {
-                            AddUpdateTypeCombox.SelectedItem = typeTask;
-                        }
-                    }
+                    MessageBox.Show("Ви не можете змінювати завдання ынших авторів");
+                    AddUpdateStartPicer.SelectedDate = DateTime.Now;
+                    AddUpdateTaskTextBox.Text = string.Empty;
+                    DescriptionUpdateTaskTextBox.Text = string.Empty;
+                    AddUpdateTimeSpanTextBox.Text = string.Empty;
+                    MyTask = new MyTask();
                 }
-
-                foreach (var it in AddUpdateAutorCombox.Items)
-                {
-                    if (it is User autor)
-                    {
-                        if (autor.Id == MyTask.AdminId)
-                        {
-                            AddUpdateAutorCombox.SelectedItem = autor;
-                        }
-                    }
-                }
-                foreach (var it in AddUpdateWorkerCombox.Items)
-                {
-                    if (it is User worker)
-                    {
-                        if (worker.Id == MyTask.WorkerId)
-                        {
-                            AddUpdateWorkerCombox.SelectedItem = worker;
-                        }
-                    }
-                }
-
-
-                AddUpdateStartPicer.SelectedDate = MyTask.DateStart;
-                AddUpdateTimeSpanTextBox.Text = MyTask.TimeSpan.ToString();
-               
-
             }
-
         }
 
         private async void UpdateTaskBtn_Click(object sender, RoutedEventArgs e)
         {
             var operationDetail = await myTaskService.UpdateAsync(MyTask.Id, MyTask);
             MessageBox.Show(operationDetail.Message);
-
             TaskListBox.ItemsSource = await myTaskService.GetAllAsync();
-            
             AddUpdateNewTaskBtn.Visibility = Visibility.Visible;
             UpdateTaskBtn.Visibility = Visibility.Collapsed;
             AddUpdateStartPicer.SelectedDate = DateTime.Now;
@@ -532,6 +526,40 @@ namespace PlannerTasks
             DescriptionUpdateTaskTextBox.Text = string.Empty;
             AddUpdateTimeSpanTextBox.Text = string.Empty;
             MyTask = new MyTask();
+        }
+
+        private async void DateFinich_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                MyTask.DateFinich = datePicker.SelectedDate;
+                var res = await myTaskService.FilterAsync(MyTask);
+                TaskListBox.ItemsSource = res;
+            }
+        }
+
+        private async void DateStart_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                MyTask.DateStart = datePicker.SelectedDate;
+                var res = await myTaskService.FilterAsync(MyTask);
+                TaskListBox.ItemsSource = res;
+            }
+
+        }
+
+
+        private void SetingTaskTabItem_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+            this.Width = 500;
+        }
+
+        private void TabItem_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.Width = 1100;
+
         }
     }
 }

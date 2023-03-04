@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlannerTasks"
         mc:Ignorable="d"
-        Title="Login" Height="150" Width="250" Loaded="Window_Loaded"
+        Title="Login" Height="300" Width="400" Loaded="Window_Loaded"
         Closing="Window_Closing">
     <Grid>
-       
+        <Grid.Background>
+            <ImageBrush Opacity="0.5" ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\Bacground.jpg"></ImageBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -18,18 +20,18 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Margin="10" Grid.Column="0" Grid.Row="0">Login </TextBlock>
-        <ComboBox Name="UsersComboBox" Margin="10,5,10,0" Grid.Column="1" Grid.Row="0" SelectedIndex="0">
+        <TextBlock Margin="10,16,10,49" Grid.Column="0" Grid.Row="0" FontWeight="Bold"  Height="30">Login</TextBlock>
+        <ComboBox Name="UsersComboBox" Margin="0,16,20,49" Grid.Column="1" Grid.Row="0" Height="30" SelectedIndex="0" >
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Login}"></TextBlock>
+                    <TextBlock Text="{Binding Login}" Height="30"></TextBlock>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox >
-        <TextBlock Margin="10" Grid.Column="0" Grid.Row="1">Password</TextBlock>
-        <PasswordBox Name="PasswordPasswordBox" Margin="10" Grid.Column="1" Grid.Row="1"> </PasswordBox>
-        <Button Margin="5" Name="LoginButton" Background="Yellow" Click="LoginButton_Click" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Width="120">
-         login</Button>
+        <TextBlock Margin="10,-17,25,5" Grid.Column="0" Grid.Row="1"  FontWeight="Bold"  Height="30" Foreground="Black">Password</TextBlock>
+        <PasswordBox Name="PasswordPasswordBox" Margin="-5,-17,25,5" Grid.Column="1" Grid.Row="1"  Height="30"></PasswordBox>
+        <Button Margin="5,45,5,5" Name="LoginButton"  Click="LoginButton_Click" Grid.Row="3" Grid.Column="0" Height="30" Grid.ColumnSpan="2" Width="120">
+            login</Button>
 
     </Grid>
 </Window>

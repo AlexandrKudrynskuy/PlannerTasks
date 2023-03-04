@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using DLL.Context;
 using Domain;
 using Domain.Model;
@@ -36,7 +37,7 @@ namespace DLL.Repository
 
      
 
-        public async Task<IReadOnlyCollection<MyTask>> Filter(MyTask myTask)
+        public async Task<IReadOnlyCollection<MyTask>> FilterAsync(MyTask myTask)
         {
             var res = Entities.AsQueryable();
 
@@ -65,18 +66,18 @@ namespace DLL.Repository
 
             if (myTask.DateStart != null)
             {
-                res = res.Where(x => x.DateStart == myTask.DateStart);
+                res = res.Where(x => x.DateStart >= myTask.DateStart);
             }
 
             if (myTask.DateFinich != null)
             {
-                res = res.Where(x => x.DateFinich == myTask.DateFinich);
+                res = res.Where(x => x.DateFinich <= myTask.DateFinich);
             }
 
-            if (myTask.TimeSpan != null)
-            {
-                res = res.Where(x => x.TimeSpan == myTask.TimeSpan);
-            }
+            //if (myTask.TimeSpan != null)
+            //{
+            //    res = res.Where(x => x.TimeSpan == myTask.TimeSpan);
+            //}
 
 
             return res.ToList();

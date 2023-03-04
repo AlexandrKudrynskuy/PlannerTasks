@@ -22,8 +22,8 @@ namespace BLL.Service
         public async Task<OperationDetail> UpdateAsync(int id, MyTask obj) => await repository.UpdateAsync(id, obj);
         
         public async Task<IReadOnlyCollection<MyTask>> GetAllAsync() => await repository.GetALLAsync();
-        public async Task<IReadOnlyCollection<MyTask>> GetFromCondition(Expression<Func<MyTask, bool>> condition) => await repository.GetFromConditionAsync(condition);
-        public async Task<IReadOnlyCollection<MyTask>> Filter(MyTask myTask) => await repository.Filter(myTask);
+        public async Task<IReadOnlyCollection<MyTask>> GetFromConditionAsync(Expression<Func<MyTask, bool>> condition) => await repository.GetFromConditionAsync(condition);
+        public async Task<IReadOnlyCollection<MyTask>> FilterAsync(MyTask myTask) => await repository.FilterAsync(myTask);
 
 
 

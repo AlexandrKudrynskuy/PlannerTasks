@@ -9,8 +9,11 @@
         Loaded="Window_Loaded">
     <Grid>
         <TabControl>
-            <TabItem Header="Налаштування задач" Name="SetingTaskTabItem">
+            <TabItem Header="Налаштування задач" Name="SetingTaskTabItem"  GotFocus="SetingTaskTabItem_GotFocus">
                 <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\set.jpg" Opacity="0.5"></ImageBrush>
+                    </Grid.Background>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -60,13 +63,16 @@
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Header="Планування задач" IsSelected="True">
+            <TabItem Header="Планування задач" IsSelected="True" GotFocus="TabItem_GotFocus" >
                 <Grid>
+                    <Grid.Background>
+                        <ImageBrush ImageSource="D:\Git\PlanerTask\PlannerTasks\PlannerTasks\PlannerTasks\Img\set.jpg" Opacity="0.5"></ImageBrush>
+                    </Grid.Background>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"></RowDefinition>
                         <RowDefinition Height="10*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <WrapPanel Grid.Row="0" Background="Bisque">
+                    <WrapPanel Grid.Row="0">
                         <TextBlock Margin="2"> Назва</TextBlock>
                         <TextBox Margin="2" Name="AddUpdateTaskTextBox" Width="250"></TextBox>
                         <TextBlock Margin="2"> Опис</TextBlock>
@@ -103,18 +109,7 @@
                             </ComboBox>
                         </StackPanel>
 
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Margin="2" Width="90">Автор</TextBlock>
-                            <ComboBox Width="90" Name="AddUpdateAutorCombox" SelectedIndex="0" SelectionChanged="AddUpdateCombox_SelectionChanged">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding SurName}"></TextBlock>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Vertical">
+                           <StackPanel Orientation="Vertical">
                             <TextBlock Margin="2" Width="90">Виконавець</TextBlock>
                             <ComboBox Width="90" Name="AddUpdateWorkerCombox" SelectedIndex="0" SelectionChanged="AddUpdateCombox_SelectionChanged">
                                 <ComboBox.ItemTemplate>
@@ -144,9 +139,9 @@
                         </StackPanel>
 
                     </WrapPanel>
-                    <Grid Grid.Row="1" Grid.Column="0" Background="AliceBlue">
-                       
-                        <Grid Grid.Row="0" Grid.Column="1" Background="Aqua">
+                    <Grid Grid.Row="1" Grid.Column="0">
+
+                        <Grid Grid.Row="0" Grid.Column="1" Background="LightGray">
                             <StackPanel Orientation="Horizontal" Height="25" VerticalAlignment="Top">
                                 <TextBlock Margin="1" Width="100"> Назва</TextBlock>
                                 <TextBlock Margin="1" Width="150"> Опис</TextBlock>
@@ -199,14 +194,14 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <DatePicker Name="DateStart" Margin="1"></DatePicker>
-                                <TextBox Width="90" Margin="1" Name="TimeSpanTextBox"></TextBox>
-                                <DatePicker Name="DateFinich"></DatePicker>
+                                <DatePicker Name="DateStart" Margin="1" SelectedDateChanged="DateStart_SelectedDateChanged"></DatePicker>
+                                <TextBox Width="90" Margin="1" Name="TimeSpanTextBox" IsReadOnly="True"></TextBox>
+                                <DatePicker Name="DateFinich" SelectedDateChanged="DateFinich_SelectedDateChanged"></DatePicker>
                             </StackPanel>
                             <ListView Name="TaskListBox" Margin="-10,60,0,0">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Background="AntiqueWhite" Tag="{Binding Id}">
+                                        <StackPanel Orientation="Horizontal"  Tag="{Binding Id}">
                                             <TextBox Margin="1" Width="100" Text="{Binding Name}" IsReadOnly="True"></TextBox>
                                             <TextBox Margin="1" Width="150" Text="{Binding Description}" IsReadOnly="True"></TextBox>
                                             <TextBox Margin="1" Width="70" Text="{Binding TypeTask.Name}" IsReadOnly="True"></TextBox>
@@ -230,6 +225,8 @@
                     </Grid>
                 </Grid>
             </TabItem>
+                
+                
         </TabControl>
     </Grid>
 </Window>
